@@ -17,6 +17,9 @@ class FacturaController extends Controller
     public function index()
     {
         $facturas = Factura::all();
+        $facturas->load('cliente');
+        $facturas->load('producto');
+        // return $facturas;
         return view('facturas.index', compact('facturas'));
 
     }
@@ -48,11 +51,9 @@ class FacturaController extends Controller
 
         $factura->fill([
             'fecha' => $request->fecha,
-            'id_producto' => $producto->id_producto,
-            'id_cliente' => $cliente->id_cliente,
         ]);
-        // $factura->producto()->associate($producto);
-        // $factura->cliente()->associate($cliente);
+        $factura->producto()->associate($producto);
+        $factura->cliente()->associate($cliente);
         $factura->save();
         
         return redirect('/facturas');

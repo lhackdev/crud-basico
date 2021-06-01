@@ -29,9 +29,9 @@ Facturas
                 <tbody>
                   @foreach($facturas as $factura)
                   <tr>
-                    <td>{{ $factura->id_cliente}}</td>
+                    <td>{{ $factura->cliente->nombre}}</td>
                     <td>{{ $factura->fecha }}</td>
-                    <td>{{ $factura->id_producto }}</td>
+                    <td>{{ $factura->producto->nombre }}</td>
                     {{-- <td>{{ $producto->factura->num_factura }}</td> --}}
                     <td style="text-align: center">
                       <div>

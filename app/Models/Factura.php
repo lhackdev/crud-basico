@@ -10,17 +10,15 @@ class Factura extends Model
 
     protected $fillable = [
         'fecha',
-        'id_cliente',
-        'id_producto',
     ];
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'id_cliente');
     }
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class);
+        return $this->belongsTo(Producto::class, 'id_producto');
     }
 }
