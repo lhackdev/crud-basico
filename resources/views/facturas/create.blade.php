@@ -26,6 +26,7 @@ Crear Facturas
                           value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
             </div>
             <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Producto</label>
             <select class="form-select" aria-label="Default select example" name="producto">
               <option selected>Seleccione</option>
               @foreach ($productos as $producto)

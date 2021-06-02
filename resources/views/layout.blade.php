@@ -20,14 +20,45 @@
     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
 
-    <script>
-        $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
-    </script>
-    
+    <style>
+      thead input {
+            width: 100%;
+        }
+    </style>
 
-    
+    <script>
+
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#myTable thead tr').clone(true).appendTo( '#myTable thead' );
+        $('#myTable thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder=" '+title+'" />' );
+
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( table.column(i).search() !== this.value ) {
+                    table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+
+          } );
+          var table = $('#myTable').DataTable( {
+            orderCellsTop: true,
+            fixedHeader: true
+        } );
+
+    } );
+
+
+    </script>
+
+
+
+
+
 
     <!-- Bootstrap core CSS -->
 <link href="../../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -48,12 +79,12 @@
       }
     </style>
 
-    
+
     <!-- Custom styles for this template -->
     <link href="../../../dashboard.css" rel="stylesheet">
   </head>
   <body>
-    
+
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">Prueba CAPP PO</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">

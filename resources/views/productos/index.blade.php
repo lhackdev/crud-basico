@@ -6,18 +6,35 @@ Productos
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-  <section>
+  <div class="container">
     <div class="card">
       <div class="card-body">
-              <h3>Lista de productos.</h3>
-              <a href="{{action('ProductoController@create')}}" style="text-decoration: none">
-                <h6>
-                  Agregar nuevo
-                </h6>
-              </a>
+            <div class="row">
+              <div class="col-md-6">
+                <h3>Lista de productos.</h3>
+                <a href="{{action('ProductoController@create')}}" style="text-decoration: none">
+                  <h6>
+                    Agregar nuevo
+                  </h6>
+                </a>
+              </div>
+              <div class="col-md-6" style="text-align: end">
+                <div class="dropdown">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Exportar Productos
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="{{url("exportproductos/excel")}}">Excel</a></li>
+                    <li><a class="dropdown-item" href="{{url("exportproductos/pdf")}}">Pdf</a></li>
+                    <li><a class="dropdown-item" href="{{url("exportproductos/csv")}}">Csv</a></li>
+                    <li><a class="dropdown-item" href="{{url("exportproductos/html")}}">Html</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
+            
             <div style="padding: 5px">
-              <table class="table table-bordered dataTable table-responsive" id="myTable" style="font-size: 13px;">
+              <table class="display" style="width:100%" id="myTable" style="font-size: 13px;">
                 <thead>
                   <tr>
                     <th>Nombre</th>
@@ -52,7 +69,7 @@ Productos
                 </tbody>
               </table>
             </div>
-           
-          </div>    
+      </div>
+    </div>    
   </section>
 @endsection

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ClienteExport;
+use App\Exports\ProductoExport;
 use App\Models\Cliente;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClienteController extends Controller
 {
@@ -94,5 +99,23 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         $cliente->delete();
         return redirect('/clientes');
+    }
+
+    public function export($tipo){
+        if($tipo == "pdf"){
+            $clientes = Cliente::all();
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadView('clientes.export', ['clientes'  => $clientes])
+            ->setPaper('a4', 'landscape')
+            ->stream('archivo.pdf');
+            return $pdf->stream();
+        }else if ($tipo == "excel"){
+            return Excel::download(new ClienteExport, 'cliente.xlsx');
+        }else if ($tipo == "csv"){
+            return Excel::download(new ClienteExport, 'cliente.csv');
+        }
+        else if ($tipo == "html"){
+            return Excel::download(new ClienteExport, 'cliente.html');
+        }   
     }
 }

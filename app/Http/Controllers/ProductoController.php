@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductoExport;
 use App\Models\Factura;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductoController extends Controller
 {
@@ -104,5 +107,23 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->delete();
         return redirect('/productos');
+    }
+
+    public function export($tipo){
+        if($tipo == "pdf"){
+            $productos = Producto::all();
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadView('productos.export', ['productos'  => $productos])
+            ->setPaper('a4', 'landscape')
+            ->stream('archivo.pdf');
+            return $pdf->stream();
+        }else if ($tipo == "excel"){
+            return Excel::download(new ProductoExport, 'producto.xlsx');
+        }else if ($tipo == "csv"){
+            return Excel::download(new ProductoExport, 'producto.csv');
+        }
+        else if ($tipo == "html"){
+            return Excel::download(new ProductoExport, 'producto.html');
+        }   
     }
 }

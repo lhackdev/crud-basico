@@ -6,18 +6,36 @@ Clientes
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-  <section>
+
+  <div class="container">
     <div class="card">
-      <div class="card-body">
-              <h3>Lista de clientes.</h3>
-              <a href="{{action('ClienteController@create')}}" style="text-decoration: none">
-                <h6>
-                  Agregar nuevo
-                </h6>
-              </a>
+      <div class="card-body">  
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Lista de clientes.</h3>
+            <a href="{{action('ClienteController@create')}}" style="text-decoration: none">
+              <h6>
+                Agregar nuevo
+              </h6>
+            </a>    
+          </div>    
+            <div class="col-md-6" style="text-align: end">
+              <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Exportar clientes
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="{{url("exportcliente/excel")}}">Excel</a></li>
+                  <li><a class="dropdown-item" href="{{url("exportcliente/pdf")}}">Pdf</a></li>
+                  <li><a class="dropdown-item" href="{{url("exportcliente/csv")}}">Csv</a></li>
+                  <li><a class="dropdown-item" href="{{url("exportcliente/html")}}">Html</a></li>
+                </ul>
+              </div>
             </div>
-            <div style="padding: 5px">
-              <table class="table table-bordered dataTable table-responsive" id="myTable" style="font-size: 13px;">
+        </div>
+ 
+            <div  style="padding: 5px">
+              <table  class="display" id="myTable" style="width:100%">
                 <thead>
                   <tr>
                     <th>Nombre</th>
@@ -57,9 +75,21 @@ Clientes
                   </tr>
                   @endforeach
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Direccion</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Categoria</th>
+                    <th style="text-align: center;">Acciones</th>
+                  </tr>
+                </tfoot>
               </table>
             </div>
            
           </div>    
-  </section>
+    </div>
 @endsection

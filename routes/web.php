@@ -1,6 +1,8 @@
 <?php
 
+use App\Exports\ProductoExport;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,7 @@ Route::get('/', function () {
 Route::resource('clientes','ClienteController');
 Route::resource('productos','ProductoController');
 Route::resource('facturas','FacturaController');
+
+Route::get('exportcliente/{tipo}','ClienteController@export');
+Route::get('exportproductos/{tipo}','ProductoController@export');
+Route::get('exportfacturas/{tipo}','FacturaController@export');
